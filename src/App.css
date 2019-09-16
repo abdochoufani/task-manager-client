@@ -1,33 +1,135 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.nav {
+  padding: 15px;
+  background-color: #323232;
+  color: #fff;
+  font-size: 1.1em;
+  box-sizing: border-box;
+  /* box-shadow:2px 0 0 4px rgba(0,0,0,0.5) */
   }
-  to {
-    transform: rotate(360deg);
+  
+  .container {
+    box-sizing: border-box;
+    display:flex;
+    justify-content: flex-end;
+    box-shadow:2px 0 0 4px rgba(0,0,0,0.5)
   }
-}
+  
+  .btn, input {
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px;
+    margin: 5px;
+  }
+  .red {
+    color: red;
+    border: 1px solid red;
+  }
+  
+  .green {
+    color: #2dbf90;
+    border: 1px solid #2dbf90;
+  }
+  
+  
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6)
+  }
+  
+  .modal-main {
+    position:fixed;
+    background: #191919;
+    width: auto;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  .display-block {
+    display: block;
+  }
+  
+  .display-none {
+    display: none;
+  }
+  
+  
+  .container-modal {
+    display: flex;
+    color: #fff;
+    font-size: 1.2em;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+  }
+  
+  
+
+  
+  .form {
+    display: flex;
+    flex-direction: inherit;
+  }
+  
+  .form input , .form button {
+    width: 100%;
+    margin:5px 0;
+    font-size: 1em;
+
+  }
+
+  .form input {
+    padding: 15px 10px;
+    background-color: #323232;
+    box-sizing: border-box;
+    border: none
+  }
+
+  .form input::placeholder input[text] {
+    color: #fff;
+
+  }
+
+  .fill {
+    background-color: #2dbf90;
+    border-color: #2dbf90;
+    color: #fff;
+    padding: 15px 10px;
+    margin-bottom: 10px
+
+
+  }
+
+  .tasks {
+    width: 100%;
+    background-color: #323232;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin: 10px 10px;
+    border-radius: 5px;
+  }
+
+  .check-box {
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+  }
+
+  .bg-green {
+    background-color: #2dbf90;
+  }
+
+  .task {
+    width:80%;
+  }
+  
