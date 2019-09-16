@@ -3,23 +3,32 @@ import Task from './Task'
 
 export default class TaskList extends Component {
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps) {
-    //         const tasks = this.state.tasks
-    //         tasks.push(nextProps)
-    //         this.setState({tasks:tasks})
-    //     }
-    // }
+
+
+    searchTask = (task) => {
+        const task_id = this.props.tasks.findIndex( x => x.task === task)
+        this.props.checkCompletedTask(task_id) 
+    }
+
 
     render() {
+        const render = this.props.error ?
+         (<div className="error">{this.props.error}</div>)
+         : 
+         this.props.tasks.map((task) => {
+            return (
+              <Task
+                key={task.task}
+                tasks={this.props.tasks}
+                task={ task.task}
+                completed ={task.completed}
+                searchTask={this.searchTask}/>
+            )
+        })
+        
         return (
-            <div className="container-modal">
-                 {this.props.tasks.map((task, id) => {
-                    return (
-                      <Task key={id} task={task}/>
-                    )
-                })} 
-                
+            <div className="container-modal margin">
+                {render}
             </div>
         )
     }

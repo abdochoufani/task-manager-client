@@ -7,11 +7,6 @@ export default class TaskForm extends Component {
     }
 
 
-    // componentDidUpdate(){
-    //     const {socket} = this.props
-    //     if(socket) socket.emit('getTasks')
-    // }
-
     handleChange =(event) => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
@@ -21,10 +16,9 @@ export default class TaskForm extends Component {
         this.props.handleTaskForm()
         const tasks = this.props.tasks
         tasks.push({task:this.state.task, completed:false})
-        let json =JSON.stringify(tasks)
-        const encrypted = encrypt.encryptData(json, sessionStorage.getItem('hash'))
+        const encrypted = encrypt.encryptData(tasks, sessionStorage.getItem('hash'))
         this.props.socket.emit('setTasks', {username:sessionStorage.getItem('username'),  data:encrypted})
-        this.props.socket.emit('getTasks')
+        // this.props.socket.emit('getTasks')
     }
     render() {
         
