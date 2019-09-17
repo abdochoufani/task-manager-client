@@ -96,9 +96,7 @@ class App extends React.Component  {
   }
 
   handleTasks = (data) => {
-    debugger
     if(data){ 
-      debugger
       this.setState({tasks:JSON.parse(data)})
     }
   }
@@ -107,9 +105,21 @@ class App extends React.Component  {
     const tasks = this.state.tasks
     const { socket } = this.state 
     tasks[index].completed = !tasks[index].completed
-    this.setState({tasks:tasks})
-    socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(this.state.tasks, sessionStorage.getItem('hash'))})
+    socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(tasks, sessionStorage.getItem('hash'))})
     this.getTasks(socket)
+  }
+
+  deleteTask = () => {
+    const tasks =this.state.tasks
+    const { socket } = this.state 
+      for(var i =0 ; i< tasks.length; i++) {
+      if(tasks[i].completed === true) {
+        tasks.splice(i, 1)
+      }
+      this.setState({tasks})
+      socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(this.state.tasks, sessionStorage.getItem('hash'))})
+      this.getTasks(socket)
+    }
   }
 
   render(){
@@ -118,6 +128,7 @@ class App extends React.Component  {
         <NavTop />
         <NavBottom 
           handleTaskForm={this.handleTaskForm}
+          deleteTask = { this.deleteTask}
            />
         <TaskForm
           show={this.state.showTaskForm}

@@ -11,7 +11,7 @@ export default class Task extends Component {
         const { task, completed } =this.props
         const checkCompleted =  completed ? ' check-box bg-green' : 'check-box'
         return (
-            <div className="tasks">
+            <div className="task-container box-shadow">
             <div className={checkCompleted} onClick={this.handleCompleted}></div>
             <p className="task">{task}</p>
         </div>
