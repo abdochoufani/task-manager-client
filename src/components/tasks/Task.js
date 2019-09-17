@@ -1,21 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Task extends Component {
-
-
-    handleCompleted = () => {
-     this.props.searchTask(this.props.task) 
-
-    }
-    render() {
-        const { task, completed } =this.props
-        const checkCompleted =  completed ? ' check-box bg-green' : 'check-box'
+const Task = (props) => {
+        const checkCompleted =  props.completed ? ' check-box bg-green' : 'check-box'
         return (
             <div className="task-container box-shadow">
-            <div className={checkCompleted} onClick={this.handleCompleted}></div>
-            <p className="task">{task}</p>
+            <div className={checkCompleted} onClick={()=>props.checkCompletedTask(props.index)}></div>
+            <p className="task">{props.task}</p>
         </div>
         )
-    }
 }
+
+
+export default Task
 

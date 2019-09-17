@@ -49,7 +49,6 @@ class App extends React.Component  {
         socket.emit('authenticate', {username, password})
         socket.on('connection', (data, err) => {
           this.handleStatus(data.status)
-          debugger
           if(err && !data.error) this.handlerrors(err)
           if (data.error) this.handlerrors(data.message)
           if (this.state.status==='success'){ 
@@ -103,20 +102,21 @@ class App extends React.Component  {
     const tasks = this.state.tasks
     const { socket } = this.state 
     tasks[index].completed = !tasks[index].completed
-    socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(tasks, sessionStorage.getItem('hash'))})
+    socket.emit('setTasks',{data:encrypt.encryptData(tasks, sessionStorage.getItem('hash'))})
     this.getTasks(socket)
   }
 
   deleteTask = () => {
+    debugger
     const tasks =this.state.tasks
     const { socket } = this.state 
       for(var i =0 ; i< tasks.length; i++) {
       if(tasks[i].completed === true) {
         tasks.splice(i, 1)
       }
-      socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(tasks, sessionStorage.getItem('hash'))})
-      this.getTasks(socket)
     }
+    socket.emit('setTasks', {data:encrypt.encryptData(tasks, sessionStorage.getItem('hash'))})
+    this.getTasks(socket)
   }
 
   render(){
@@ -126,6 +126,7 @@ class App extends React.Component  {
         <NavBottom 
           handleTaskForm={this.handleTaskForm}
           deleteTask = { this.deleteTask}
+          tasks = {this.state.tasks}
            />
         <TaskForm
           show={this.state.showTaskForm}

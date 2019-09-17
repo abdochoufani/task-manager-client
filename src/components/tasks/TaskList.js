@@ -1,31 +1,25 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Task from './Task'
 
-export default class TaskList extends Component {
-
-
-
-    searchTask = (task) => {
-        const task_id = this.props.tasks.findIndex( x => x.task === task)
-        this.props.checkCompletedTask(task_id) 
-    }
-
+ class TaskList extends PureComponent {
 
     render() {
         const render = this.props.error ?
          (<div className="error">{this.props.error}</div>)
          : 
-         this.props.tasks.map((task) => {
+         this.props.tasks.map((task, index) => {
             return (
               <Task
-                key={task.task}
+                key={index}
+                index={index}
                 tasks={this.props.tasks}
                 task={ task.task}
+                checkCompletedTask={this.props.checkCompletedTask}
                 completed ={task.completed}
                 searchTask={this.searchTask}/>
             )
         })
-        
+
         return (
             <div className="container-modal margin">
                 {render}
@@ -33,3 +27,6 @@ export default class TaskList extends Component {
         )
     }
 }
+
+
+export default TaskList

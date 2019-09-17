@@ -2,21 +2,26 @@ import React from 'react'
 
 
 
-class Modal extends React.Component {
+class Modal extends React.PureComponent {
     state = {
         username:'',
-        password:''
+        password:'',
+        error:null
     }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.status ==='sucsess' && this.props.status !== 'sucsess')  this.props.handleClose()
+        if(nextProps.error) this.setState({error:nextProps.error})
       }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        const  username= this.state.username
-        const  password= this.state.password
-        this.props.connectSocket(username, password)
+        if(this.state.username === '' || this.state.password==='') this.setState({error:'username and/or password are required'})
+        else {
+            const  username= this.state.username
+            const  password= this.state.password
+            this.props.connectSocket(username, password)
+        }
   
     }
 
@@ -26,7 +31,7 @@ class Modal extends React.Component {
     }
 
     render(){
-    const showHideClassName = (this.props.status !== 'success' || this.props.error) ? "modal display-block" : "modal display-none";
+    const showHideClassName = (this.props.status !== 'success' || this.state.error) ? "modal display-block" : "modal display-none";
     return (
       <div className={ showHideClassName }>
         <section className="modal-main box-shadow">

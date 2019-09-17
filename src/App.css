@@ -1,16 +1,4 @@
-.nav {
-  padding: 15px;
-  background-color: #323232;
-  color: #fff;
-  font-size: 1.1em;
-  box-sizing: border-box;
-}
 
-.nav-btm-container {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-end;
-}
 
 .btn,
 input {
@@ -26,6 +14,11 @@ input {
   border: 1px solid #ee3233;
 }
 
+.grey {
+  color: #323232;
+  border: 1px solid #323232;
+}
+
 .green {
   color: #2dbf90;
   border: 1px solid #2dbf90;
@@ -36,6 +29,8 @@ input {
   font-weight: 100;
   color: #ee3233;
 }
+
+
 
 .fill {
   background-color: #2dbf90;
@@ -50,6 +45,43 @@ input {
 }
 
 
+
+/* nav*/
+.nav {
+  padding: 15px;
+  background-color: #323232;
+  color: #fff;
+  font-size: 1.1em;
+  box-sizing: border-box;
+}
+
+
+.nav h4 {
+  padding:0;
+  margin:0;
+}
+
+.nav-btm-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.test {
+  display: flex;
+  width: 100%;
+  margin-right: 10px;
+  justify-content: flex-end;
+}
+
+.test span {
+  padding: 5px 25px;
+}
+
+
+.nav-btm-container span {
+  margin-left: 1%;
+}
 
 /*Sign in or sign up*/
 
@@ -140,13 +172,14 @@ input {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
 }
 
+
 .task-form input {
   background-color: #323232;
   width: 80%;
 }
 
 .task-btn {
-  background-color: #2dbf90;
+  background-color: #2dbf90 !important;
   color: #fff;
   width: 80px !important
 }
