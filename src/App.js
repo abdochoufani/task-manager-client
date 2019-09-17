@@ -14,22 +14,13 @@ class App extends React.Component  {
   state={
     socket:null,
     status:'',
-    error:'',
+    error:null,
     statusCode:200,
     showTaskForm:false,
     show:true,
     taskStatus:'',
     tasks:[]
   }
-
-
-  componentDidMount() {
-    const {socket} =this.state
-    if(socket) this.getTasks(socket)
-  }
-
-
-
 
   getTasks = (socket) => {
     let decrypted 
@@ -47,13 +38,20 @@ class App extends React.Component  {
 
 
   connectSocket = (username, password) => {
-    const socket =  require('socket.io-client')('http://localhost:' + config.port + '/' + config.namespace)
     password = encrypt.hashPassword(password)
+    const socket =  require('socket.io-client')('http://localhost:' + config.port + '/' + config.namespace , {
+      query: {
+          username: username,
+          password: password
+      }
+  })
     socket.on('connect', ()=>{
         socket.emit('authenticate', {username, password})
-        socket.on('connection', (data) => {
+        socket.on('connection', (data, err) => {
           this.handleStatus(data.status)
-          if (data.error) this.handlerrors(data)
+          debugger
+          if(err && !data.error) this.handlerrors(err)
+          if (data.error) this.handlerrors(data.message)
           if (this.state.status==='success'){ 
             sessionStorage.setItem('username', username)
             sessionStorage.setItem('hash', password)
@@ -67,7 +65,6 @@ class App extends React.Component  {
             socket:null,
             showTaskForm:false,
             show:true,
-
           })
         })
     })
@@ -75,7 +72,7 @@ class App extends React.Component  {
 
 
   handlerrors = (data) => {
-    this.setState({error:data.message})
+    this.setState({error:data})
   
   }
 
@@ -92,6 +89,7 @@ class App extends React.Component  {
   }
 
   handleTaskStatus = (status) => {
+    this.setState({error:null})
     this.setState({taskStatus:status})
   }
 
@@ -116,8 +114,7 @@ class App extends React.Component  {
       if(tasks[i].completed === true) {
         tasks.splice(i, 1)
       }
-      this.setState({tasks})
-      socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(this.state.tasks, sessionStorage.getItem('hash'))})
+      socket.emit('setTasks',{username:sessionStorage.getItem('username'), data:encrypt.encryptData(tasks, sessionStorage.getItem('hash'))})
       this.getTasks(socket)
     }
   }

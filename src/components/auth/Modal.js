@@ -26,20 +26,20 @@ class Modal extends React.Component {
     }
 
     render(){
-    const showHideClassName = this.props.status !== 'success' ? "modal display-block" : "modal display-none";
+    const showHideClassName = (this.props.status !== 'success' || this.props.error) ? "modal display-block" : "modal display-none";
     return (
       <div className={ showHideClassName }>
-        <section className="modal-main">
+        <section className="modal-main box-shadow">
             <div className="container-modal">
-                    <p className="p"><strong className="heading">Sign in</strong> or Sign up</p>
+                    <p className="p"><span className="heading">Sign in</span> or Sign up</p>
                     {this.props.error && (
                         <div className="error">
                             {this.props.error}
                         </div>
                     )}
                     <form onSubmit={this.handleSubmit} className="form">
-                        <input name="username" type="text" placeholder="Username" value={this.state.username} onChange={this.handleChange}/>
-                        <input name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
+                        <input className="input" name="username" type="text" placeholder="Username" value={this.state.username} onChange={this.handleChange}/>
+                        <input className="input" name="password" type="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
                         <button className="btn fill">SIGN IN</button>
                     </form>
                 </div>

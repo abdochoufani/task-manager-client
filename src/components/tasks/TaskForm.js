@@ -26,8 +26,8 @@ export default class TaskForm extends Component {
             <div>
             {this.props.show && (
                 <form className="task-form" onSubmit={this.handleSubmit}>
-                    <input type="text" name="task" value={this.state.task} onChange={this.handleChange} />
-                    <input className="btn task-btn " type="submit"/>
+                    <input className="input" placeholder="Add your task ..." type="text" name="task" value={this.state.task} onChange={this.handleChange} />
+                    <input className="btn fill" type="submit" name="Add Task"/>
                 </form>
             )}
             </div>
